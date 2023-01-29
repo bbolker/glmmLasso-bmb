@@ -618,9 +618,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
               F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
             }
             
-            InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+            InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
             if(inherits(InvFisher2, "try-error"))
-              InvFisher2<-try(solve(F_gross),silent=T)
+              InvFisher2<-try(solve(F_gross),silent=TRUE)
             if(inherits(InvFisher2, "try-error"))
             {
               #stop("Fisher matrix not invertible")  
@@ -857,9 +857,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
             F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
           }
 
-          InvFisher<-try(chol2inv(chol(F_gross)),silent=T)
+          InvFisher<-try(chol2inv(chol(F_gross)),silent=TRUE)
           if(inherits(InvFisher, "try-error"))
-            InvFisher<-try(solve(F_gross),silent=T)
+            InvFisher<-try(solve(F_gross),silent=TRUE)
           if(inherits(InvFisher, "try-error"))
           {
             half.index<-half.index+1  
@@ -947,7 +947,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
               
               ranef.logLik<- -0.5*t(Delta[l,(lin+1):(lin+n%*%s)])%*%(P1[(lin+1):(lin+n%*%s),(lin+1):(lin+n%*%s)]%*%Delta[l,(lin+1):(lin+n%*%s)])
               
-              logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+              logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
               
               active<-c(rep(T,q),!is.element(Delta[l,(q+1):lin],0),rep(T,n%*%s))
               Z_aktuell<-Z_alles[,active]
@@ -991,9 +991,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
                   F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
                 }
                 
-                InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+                InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
                 if(inherits(InvFisher2, "try-error"))
-                  InvFisher2<-try(solve(F_gross),silent=T)
+                  InvFisher2<-try(solve(F_gross),silent=TRUE)
                 if(inherits(InvFisher2, "try-error"))
                 {
                   half.index<-half.index+1  
@@ -1214,9 +1214,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
                 F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
               }
 
-              InvFisher3<-try(chol2inv(chol(F_gross)),silent=T)
+              InvFisher3<-try(chol2inv(chol(F_gross)),silent=TRUE)
               if(inherits(InvFisher3, "try-error"))
-                InvFisher3<-try(solve(F_gross),silent=T)
+                InvFisher3<-try(solve(F_gross),silent=TRUE)
               if(inherits(InvFisher3, "try-error"))
               {
                 half.index<-half.index+1  
@@ -1299,9 +1299,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
         }
 
-        InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+        InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
         if(inherits(InvFisher2, "try-error"))
-          InvFisher2<-try(solve(F_gross),silent=T)
+          InvFisher2<-try(solve(F_gross),silent=TRUE)
 
         if(is.null(family$multivariate)){
           Z_temp <- Z_aktuell*sqrt(W_opt)
@@ -1506,7 +1506,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
       if(family$family %in% known_families)
       {
         
-        loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=T,K=K, phi = phi)
+        loglik <- logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
         
         if(control$complexity!="hat.matrix")  
         {  
@@ -1785,7 +1785,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           }          
           ranef.logLik<- -0.5*t(Delta[1,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])%*%(P1[(lin+dim.smooth+1):(lin+dim.smooth+n%*%s),(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)]%*%Delta[1,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])
           
-          logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+          logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
           
           active<-c(rep(T,q),!is.element(Delta[1,(q+1):lin],0),rep(T,dim.smooth+n%*%s))
           Z_aktuell<-Z_alles[,active]
@@ -1829,9 +1829,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
               W_opt <- RcppEigenProd2(D, SigmaInv)
               F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
             }
-            InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+            InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
             if(inherits(InvFisher2, "try-error"))
-              InvFisher2<-try(solve(F_gross),silent=T)
+              InvFisher2<-try(solve(F_gross),silent=TRUE)
             if(inherits(InvFisher2, "try-error"))
             {
               #stop("Fisher matrix not invertible")  
@@ -2077,9 +2077,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
             W_opt <- RcppEigenProd2(D, SigmaInv)
             F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
           }
-          InvFisher<-try(chol2inv(chol(F_gross)),silent=T)
+          InvFisher<-try(chol2inv(chol(F_gross)),silent=TRUE)
           if(inherits(InvFisher, "try-error"))
-            InvFisher<-try(solve(F_gross),silent=T)
+            InvFisher<-try(solve(F_gross),silent=TRUE)
           if(inherits(InvFisher, "try-error"))
           {
             half.index<-half.index+1  
@@ -2168,7 +2168,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
               
               ranef.logLik<- -0.5*t(Delta[l,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])%*%(P1[(lin+dim.smooth+1):(lin+dim.smooth+n%*%s),(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)]%*%Delta[l,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])
               
-              logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+              logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
               
               active<-c(rep(T,q),!is.element(Delta[l,(q+1):lin],0),rep(T,dim.smooth+n%*%s))
               Z_aktuell<-Z_alles[,active]
@@ -2215,9 +2215,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
                   W_opt <- RcppEigenProd2(D, SigmaInv)
                   F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
                 }
-                InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+                InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
                 if(inherits(InvFisher2, "try-error"))
-                  InvFisher2<-try(solve(F_gross),silent=T)
+                  InvFisher2<-try(solve(F_gross),silent=TRUE)
                 if(inherits(InvFisher2, "try-error"))
                 {
                   half.index<-half.index+1  
@@ -2447,9 +2447,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
                 W_opt <- RcppEigenProd2(D, SigmaInv)
                 F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
               }
-              InvFisher3<-try(chol2inv(chol(F_gross)),silent=T)
+              InvFisher3<-try(chol2inv(chol(F_gross)),silent=TRUE)
               if(inherits(InvFisher3, "try-error"))
-                InvFisher3<-try(solve(F_gross),silent=T)
+                InvFisher3<-try(solve(F_gross),silent=TRUE)
               if(inherits(InvFisher3, "try-error"))
               {
                 half.index<-half.index+1  
@@ -2537,9 +2537,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           W_inv_t <- RcppEigenSpChol(W_opt)
           F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
         }
-        InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+        InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
         if(inherits(InvFisher2, "try-error"))
-          InvFisher2<-try(solve(F_gross),silent=T)
+          InvFisher2<-try(solve(F_gross),silent=TRUE)
       
       if(is.null(family$multivariate)){
         FinalHat.df<-(Z_aktuell*sqrt(W_opt))%*%InvFisher2%*%t(Z_aktuell*sqrt(W_opt))
@@ -2792,8 +2792,8 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           sum(Delta_neu[1:lin][-intercept.which,drop = FALSE] * mu.x)   
       }
       
-      aic<-NaN
-      bic<-NaN
+      aic<-NA_real_
+      bic<-NA_real_
       
         if(family$family %in% known_families)
         {
@@ -3028,7 +3028,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
         
         ranef.logLik<- -0.5*t(Delta[1,(lin+1):(lin+n%*%s)])%*%(P1[(lin+1):(lin+n%*%s),(lin+1):(lin+n%*%s)]%*%Delta[1,(lin+1):(lin+n%*%s)])
         
-        logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+        logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
         
         active<-c(rep(T,q),!is.element(Delta[1,(q+1):lin],0),rep(T,n%*%s))
         Z_aktuell<-Z_alles[,active]
@@ -3071,9 +3071,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
             W_opt <- RcppEigenProd2(D, SigmaInv)
             F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
           }
-          InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+          InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
           if(inherits(InvFisher2, "try-error"))
-            InvFisher2<-try(solve(F_gross),silent=T)
+            InvFisher2<-try(solve(F_gross),silent=TRUE)
           if(inherits(InvFisher2, "try-error"))
           {
             #stop("Fisher matrix not invertible")  
@@ -3311,7 +3311,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
 
             ranef.logLik<- -0.5*t(Delta[l,(lin+1):(lin+n%*%s)])%*%(P1[(lin+1):(lin+n%*%s),(lin+1):(lin+n%*%s)]%*%Delta[l,(lin+1):(lin+n%*%s)])
             
-            logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+            logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
             
             active<-c(rep(T,q),!is.element(Delta[l,(q+1):lin],0),rep(T,n%*%s))
             Z_aktuell<-Z_alles[,active]
@@ -3354,9 +3354,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
                 W_opt <- RcppEigenProd2(D, SigmaInv)
                 F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
               }
-              InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+              InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
               if(inherits(InvFisher2, "try-error"))
-                InvFisher2<-try(solve(F_gross),silent=T)
+                InvFisher2<-try(solve(F_gross),silent=TRUE)
               if(inherits(InvFisher2, "try-error"))
               {
                 half.index<-half.index+1  
@@ -3590,9 +3590,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
         }
         
-        InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+        InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
         if(inherits(InvFisher2, "try-error"))
-          InvFisher2<-try(solve(F_gross),silent=T)
+          InvFisher2<-try(solve(F_gross),silent=TRUE)
       
       
       if(is.null(family$multivariate)){
@@ -3797,13 +3797,13 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           sum(Delta_neu[1:lin][-intercept.which,drop = FALSE] * mu.x)   
       }
 
-      aic<-NaN
-      bic<-NaN
+      aic <- NA_real_
+      bic <- NA_real_
       
       if(family$family %in% known_families) 
       {
         
-        loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+        loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
         
         if(control$complexity!="hat.matrix")  
         {  
@@ -4079,7 +4079,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
         }          
         ranef.logLik<- -0.5*t(Delta[1,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])%*%(P1[(lin+dim.smooth+1):(lin+dim.smooth+n%*%s),(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)]%*%Delta[1,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])
         
-        logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+        logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
         
         active<-c(rep(T,q),!is.element(Delta[1,(q+1):lin],0),rep(T,dim.smooth+n%*%s))
         Z_aktuell<-Z_alles[,active]
@@ -4124,9 +4124,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
             W_opt <- RcppEigenProd2(D, SigmaInv)
             F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
           }
-          InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+          InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
           if(inherits(InvFisher2, "try-error"))
-            InvFisher2<-try(solve(F_gross),silent=T)
+            InvFisher2<-try(solve(F_gross),silent=TRUE)
           if(inherits(InvFisher2, "try-error"))
           {
             #stop("Fisher matrix not invertible")  
@@ -4372,7 +4372,7 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
             
             ranef.logLik<- -0.5*t(Delta[l,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])%*%(P1[(lin+dim.smooth+1):(lin+dim.smooth+n%*%s),(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)]%*%Delta[l,(lin+dim.smooth+1):(lin+dim.smooth+n%*%s)])
             
-            logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+            logLik.vec[l]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
             
             active_old<-active
             active<-c(rep(T,q),!is.element(Delta[l,(q+1):lin],0),rep(T,dim.smooth+n%*%s))
@@ -4420,9 +4420,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
                 W_opt <- RcppEigenProd2(D, SigmaInv)
                 F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
               }
-              InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+              InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
               if(inherits(InvFisher2, "try-error"))
-                InvFisher2<-try(solve(F_gross),silent=T)
+                InvFisher2<-try(solve(F_gross),silent=TRUE)
               if(inherits(InvFisher2, "try-error"))
               {
                 half.index<-half.index+1  
@@ -4667,9 +4667,9 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           W_inv_t <- RcppEigenSpChol(W_opt)
           F_gross <- t(Z_aktuell)%*%(W_opt%*%Z_aktuell)+P_akt
         }
-        InvFisher2<-try(chol2inv(chol(F_gross)),silent=T)
+        InvFisher2<-try(chol2inv(chol(F_gross)),silent=TRUE)
         if(inherits(InvFisher2, "try-error"))
-          InvFisher2<-try(solve(F_gross),silent=T)
+          InvFisher2<-try(solve(F_gross),silent=TRUE)
       }          
       
       if(is.null(family$multivariate)){
@@ -4922,12 +4922,12 @@ est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,contr
           sum(Delta_neu[1:lin][-intercept.which,drop = FALSE] * mu.x)   
       }
 
-      aic<-NaN
-      bic<-NaN
+      aic<-NA_real_
+      bic<-NA_real_
       
       if(family$family %in% known_families)
       {
-        loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=T,K=K, phi = phi)
+        loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
         
         if(control$complexity!="hat.matrix")  
         {  
