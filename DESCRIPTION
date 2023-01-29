@@ -9,7 +9,7 @@ Maintainer: Andreas Groll <groll@statistik.tu-dortmund.de>
 Description: A variable selection approach for generalized linear mixed models by L1-penalized estimation is provided, 
 	see Groll and Tutz (2014) <doi:10.1007/s11222-012-9359-z>.
 	See also Groll and Tutz (2017) <doi:10.1007/s10985-016-9359-y> for discrete survival models including heterogeneity.
-Imports: stats, minqa, Matrix, Rcpp (>= 0.12.12), methods, GMMBoost
+Imports: stats, minqa, Matrix, Rcpp (>= 0.12.12), methods
 Suggests: tweedie
 LinkingTo: Rcpp, RcppEigen
 License: GPL-2
