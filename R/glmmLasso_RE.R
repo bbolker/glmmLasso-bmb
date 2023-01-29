@@ -1,4 +1,6 @@
-est.glmmLasso.RE<-function(fix,rnd,data,lambda,family,final.re,switch.NR,control)
+known_families <- c("gaussian", "binomial", "poisson", "acat","cumulative", "Tweedie")
+
+est.glmmLasso.RE <- function(fix,rnd,data,lambda,family,final.re,switch.NR,control)
 {  
   control<-do.call(glmmLassoControl, control)
   
@@ -573,7 +575,7 @@ est.glmmLasso.RE<-function(fix,rnd,data,lambda,family,final.re,switch.NR,control
           
           ranef.logLik<- -0.5*t(Delta[1,(lin+1):(lin+n%*%s)])%*%(P1[(lin+1):(lin+n%*%s),(lin+1):(lin+n%*%s)]%*%Delta[1,(lin+1):(lin+n%*%s)])
           
-          logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
+          logLik.vec[1]<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu,ranef.logLik=ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
           
           active<-c(rep(T,q),!is.element(Delta[1,(q+1):lin],0),rep(T,n%*%s))
           Z_aktuell<-Z_alles[,active]
@@ -1499,9 +1501,9 @@ est.glmmLasso.RE<-function(fix,rnd,data,lambda,family,final.re,switch.NR,control
           sum(Delta_neu[1:lin][-intercept.which,drop = FALSE] * mu.x)   
       }
       
-      aic<-NaN
-      bic<-NaN
-      if(is.element(family$family,c("gaussian", "binomial", "poisson","acat","cumulative"))) 
+      aic <- NA_real_
+      bic <- NA_real_
+      if(family$family %in% known_families)
       {
         
         loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=T,K=K, phi = phi)
@@ -2793,9 +2795,9 @@ est.glmmLasso.RE<-function(fix,rnd,data,lambda,family,final.re,switch.NR,control
       aic<-NaN
       bic<-NaN
       
-      if(is.element(family$family,c("gaussian", "binomial", "poisson","acat","cumulative"))) 
-      {
-        loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=T,K=K, phi = phi)
+        if(family$family %in% known_families)
+        {
+        loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=TRUE,K=K, phi = phi)
         
         if(control$complexity!="hat.matrix")  
         {  
@@ -3798,7 +3800,7 @@ est.glmmLasso.RE<-function(fix,rnd,data,lambda,family,final.re,switch.NR,control
       aic<-NaN
       bic<-NaN
       
-      if(is.element(family$family,c("gaussian", "binomial", "poisson","acat","cumulative"))) 
+      if(family$family %in% known_families) 
       {
         
         loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=ranef.logLik,family=family,penal=T,K=K, phi = phi)
@@ -4923,7 +4925,7 @@ est.glmmLasso.RE<-function(fix,rnd,data,lambda,family,final.re,switch.NR,control
       aic<-NaN
       bic<-NaN
       
-      if(is.element(family$family,c("gaussian", "binomial", "poisson","acat","cumulative"))) 
+      if(family$family %in% known_families)
       {
         loglik<-logLik.glmmLasso(y=y,yhelp=yhelp,mu=Mu_opt,ranef.logLik=glmm_fin$ranef.logLik,family=family,penal=T,K=K, phi = phi)
         
